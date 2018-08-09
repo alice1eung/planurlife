@@ -1,27 +1,43 @@
-function getCourses(name) {
+const searchBox = document.querySelector(".courseSearchBox");
+const courseDisplay = document.querySelector(".courseDisplay");
+
+
+function requestCourse(name) {
   let request = new XMLHttpRequest();
   let key = ".json?key=e5d74b1e38eeb82421a273caa1cb877e";
   let url = "https://api.uwaterloo.ca/v2/courses/";
+
+  var courses = [];
 
   request.open("GET", url + name + key, true);
 
   request.onload = function() {
     var dump = JSON.parse(this.response);
-    var courses = [];
 
     if (dump.meta.status == 200) {
-      console.log(dump);
       for (var i = 0; i < dump.data.length; ++i) {
-        let course = dump.data[i].subject + " " + dump.data[i].catalog_number;
-        console.log(course);
+        courses[i] = dump.data[i].subject + " " + dump.data[i].catalog_number;
       }
-      //console.log(dump.data[0].subject);
     } else {
-      console.log("Error");
+
+    }
+  }
+
+  request.onloadend = function() {
+    if (courses.length != 0) {
+      courseDisplay.innerHTML = courses.join(", ");
+    } else {
+      courseDisplay.innerHTML = "Search Above";
     }
   }
 
   request.send();
 }
 
-getCourses("CS");
+function getCourses() {
+  if (searchBox.value != "" && !searchBox.value.includes(" ")) {
+    requestCourse(searchBox.value);
+  }
+}
+
+searchBox.addEventListener("keyup", getCourses, false);
