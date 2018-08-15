@@ -9,16 +9,13 @@
 		</h1>
 
 
-		<form action="/action_page.php">
+		<div>
   			<select name="calender year">
     			<option value="2018">2018</option>
     			<option value="2017">2017</option>
     			<option value="2016">2016</option>
     			<option value="2015">2015</option>
   			</select>
-		</form>
-
-		<form action="/action_page.php">
   			<select name="term">
     			<option value="1A">1A</option>
     			<option value="1B">1B</option>
@@ -33,9 +30,14 @@
     			<option value="6A">6A</option>
     			<option value="6B">6B</option>
   			</select>
-  			<br><br>
-  			<input type="submit">
-		</form>
+  			<button onclick = "get_action(this);">Submit </button>
+		</div>
+
+		<br></br>
+
+		<ul id = "required courses">
+		</ul>
+
 
 		<div>
 			<h2>Select Previous Courses</h2>
